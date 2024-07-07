@@ -3,6 +3,7 @@ import express from "express";
 import globalErrorHandler from "./middlewares/globalErrorHandler";
 import userRouter from "./user/userRouter";
 import hospitalRouter from "./hospital/hospitalRoute";
+// import qrRouter from "../qr-code/qrRoutes";
 
 const app = express();
 app.use(express.json());
