@@ -1,6 +1,20 @@
-export interface User {
-  _id: String;
-  name: String;
-  email: String;
-  password: String;
+import mongoose, { Document } from "mongoose";
+
+export interface User extends Document {
+  _Id: string;
+  username: string;
+  password: string;
+  email: string;
+  fullName: string;
+  dateOfBirth: Date;
+  gender: "Male" | "Female" | "Other";
+  phoneNumber?: string;
+  address?: string;
+  documents?: mongoose.Types.ObjectId[];
+  qrCode?: mongoose.Types.ObjectId;
+  otp?: string;
+  otpExpiration?: Date;
+  phoneOtp?: string;
+  phoneOtpExpiration?: Date;
+  isVerified: boolean;
 }
