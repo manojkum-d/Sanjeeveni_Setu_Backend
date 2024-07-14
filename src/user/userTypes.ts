@@ -17,4 +17,5 @@ export interface User extends Document {
   phoneOtp?: string;
   phoneOtpExpiration?: Date;
   isVerified: boolean;
+  isAdmin: boolean;
 }

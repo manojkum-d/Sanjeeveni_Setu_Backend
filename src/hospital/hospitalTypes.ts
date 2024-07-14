@@ -6,4 +6,5 @@ export interface Hospital {
   address: string;
   phoneNumber: string;
   isApproved: boolean;
+  isAdmin: boolean;
 }

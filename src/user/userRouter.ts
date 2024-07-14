@@ -15,6 +15,6 @@ userRouter.post("/login", loginUser);
 userRouter.post("/verify-email-otp", verifyUserEmailOTP);
 userRouter.post("/verify-phone-otp", verifyUserPhoneOTP);
 userRouter.post("/generate-qr-code", createQRCode);
-userRouter.get("/get-qr-code", getQRCode);
+userRouter.get("/get-qr-code/:hashedUserId", getQRCode);
 
 export default userRouter;

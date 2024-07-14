@@ -13,7 +13,6 @@ const createHospital = async (
 ) => {
   const { name, email, password, address, phoneNumber } = req.body;
 
-  // Validation
   if (!name || !email || !password || !address || !phoneNumber) {
     return next(createHttpError(400, "All fields are required"));
   }
@@ -42,13 +41,10 @@ const createHospital = async (
       algorithm: "HS256",
     });
 
-    res
-      .status(201)
-      .json({
-        accessToken: token,
-        message:
-          "Hospital registered successfully. Waiting for admin approval.",
-      });
+    res.status(201).json({
+      accessToken: token,
+      message: "Hospital registered successfully. Waiting for admin approval.",
+    });
   } catch (err) {
     next(createHttpError(500, "Error while creating hospital"));
   }
@@ -93,4 +89,27 @@ const loginHospital = async (
   }
 };
 
-export { createHospital, loginHospital };
+// Approve hospital (admin only)
+const approveHospital = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  const { hospitalId } = req.params;
+
+  try {
+    const hospital = await hospitalModel.findById(hospitalId);
+    if (!hospital) {
+      return next(createHttpError(404, "Hospital not found"));
+    }
+
+    hospital.isApproved = true;
+    await hospital.save();
+
+    res.json({ message: "Hospital approved successfully" });
+  } catch (err) {
+    next(createHttpError(500, "Error while approving hospital"));
+  }
+};
+
+export { createHospital, loginHospital, approveHospital };

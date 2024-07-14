@@ -5,6 +5,8 @@ import mongoose from "mongoose";
 export interface QRCode {
   code: string;
   user: mongoose.Schema.Types.ObjectId;
+  qrImageUrl: string;
+  hashedUserId: string;
   // Removed expirationDate as QR code is permanent
 }
 

@@ -1,13 +1,23 @@
-import express from "express";
-import { createHospital } from "./hospitalController";
-// import createHospital from "./hospitalController";
-// import { createUser, loginUser } from "./userController";
+// Example usage in a route
+import { Router } from "express";
+import { verifyJWT } from "../middlewares/jwtTokenVerification";
+import { checkAdmin } from "../middlewares/checkAdmin";
+import {
+  approveHospital,
+  createHospital,
+  loginHospital,
+} from "./hospitalController";
 
-const hospitalRouter = express.Router();
+const hospitalRouter = Router();
 
-//routes
-
+// Protect routes with authentication middleware
 hospitalRouter.post("/register", createHospital);
-// hospitalRouter.post("/login", );
+hospitalRouter.post("/login", loginHospital);
+hospitalRouter.put(
+  "/hospital/approve/:hospitalId",
+  verifyJWT,
+  checkAdmin,
+  approveHospital
+);
 
 export default hospitalRouter;

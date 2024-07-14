@@ -3,4 +3,5 @@ export interface UserOTP {
   otp: String;
   createdAt: Date;
   expiresAt: Date;
+  isAdmin: Boolean;
 }

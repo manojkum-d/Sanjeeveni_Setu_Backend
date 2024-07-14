@@ -1,3 +1,4 @@
+// userModel.ts
 import mongoose from "mongoose";
 import { User } from "./userTypes";
 
@@ -14,10 +15,10 @@ const userSchema = new mongoose.Schema<User>({
   qrCode: { type: mongoose.Schema.Types.ObjectId, ref: "QRCode" },
   otp: String,
   otpExpiration: Date,
-  phoneOtp: String, // New field
+  phoneOtp: String,
   phoneOtpExpiration: Date,
   isVerified: { type: Boolean, default: false },
+  isAdmin: { type: Boolean, default: false },
 });
 
-//Users
 export default mongoose.model<User>("User", userSchema);
