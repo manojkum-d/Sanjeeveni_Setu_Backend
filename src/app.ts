@@ -14,7 +14,7 @@ const app = express();
 // Add CORS middleware
 app.use(
   cors({
-    origin: "http://localhost:3000", // Allow requests from your Next.js frontend
+    origin: true, // Allow requests from your Next.js frontend
     methods: ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"],
     allowedHeaders: ["Content-Type", "Authorization"],
   })
