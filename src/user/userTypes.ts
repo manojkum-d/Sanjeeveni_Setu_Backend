@@ -1,7 +1,7 @@
 import mongoose, { Document } from "mongoose";
 
 export interface User extends Document {
-  _Id: string;
+  _id: string;
   username: string;
   password: string;
   email: string;

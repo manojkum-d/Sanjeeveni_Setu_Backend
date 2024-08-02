@@ -113,6 +113,7 @@ const createUser = async (req: Request, res: Response, next: NextFunction) => {
     res.status(201).json({
       message:
         "User created successfully. Please verify your email and phone number with the OTPs sent to you.",
+      userId: newUser._id,
     });
   } catch (err) {
     next(createHttpError(500, "Error while creating user"));

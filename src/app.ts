@@ -7,6 +7,7 @@ import healthMetricsRouter from "./health_details/Health Metrics/healthMetricsRo
 import documentRouter from "./health_details/Documents_Info/documentRouter";
 import medicationReminderRouter from "./health_details/Medication_Reminder/MedicationReminderRouter";
 import adminRouter from "./admin/adminRouter";
+import patientProfileRouter from "./user/userProfile/userProfileRoute";
 
 const app = express();
 
@@ -27,6 +28,7 @@ app.get("/", (req, res) => {
 });
 
 app.use("/api/users", userRouter);
+app.use("/api/users/userprofile", patientProfileRouter);
 app.use("/api/hospitals", hospitalRouter);
 app.use("/api/health-metrics", healthMetricsRouter);
 app.use("/api/documents", documentRouter);
