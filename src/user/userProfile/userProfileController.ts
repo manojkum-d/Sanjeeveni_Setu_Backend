@@ -2,8 +2,6 @@ import { NextFunction, Response } from "express";
 import createHttpError from "http-errors";
 import PatientProfileModel from "./userProfileModel";
 import { AuthenticatedRequest } from "../../middlewares/jwtTokenVerification";
-// import { User } from "../user/userTypes";
-// import { Hospital } from "../../hospital/hospitalTypes";
 
 // Get patient profile
 const getPatientProfile = async (
@@ -12,9 +10,13 @@ const getPatientProfile = async (
   next: NextFunction
 ) => {
   try {
-    const userId = req.user?._id; // Type assertion should be adjusted based on actual JWT payload
+    // Determine whether the request is made by a hospital or a user
+    const userId = req.hospital ? req.params.userId : req.user?._id;
+
     if (!userId) {
-      return next(createHttpError(401, "User not authenticated"));
+      return next(
+        createHttpError(401, "User not authenticated or user ID not provided")
+      );
     }
 
     const patientProfile = await PatientProfileModel.findOne({ userId });
@@ -23,8 +25,9 @@ const getPatientProfile = async (
       return next(createHttpError(404, "Patient profile not found"));
     }
 
-    res.json(patientProfile);
+    res.status(200).json(patientProfile);
   } catch (err) {
+    console.error(err); // Log the error for debugging
     next(createHttpError(500, "Error while retrieving patient profile"));
   }
 };
@@ -36,7 +39,8 @@ const createPatientProfile = async (
   next: NextFunction
 ) => {
   try {
-    const userId = req.user?._id; // Type assertion should be adjusted based on actual JWT payload
+    const userId = req.user?._id;
+
     if (!userId) {
       return next(createHttpError(401, "User not authenticated"));
     }
@@ -57,6 +61,7 @@ const createPatientProfile = async (
 
     res.status(201).json(newProfile);
   } catch (err) {
+    console.error(err); // Log the error for debugging
     next(createHttpError(500, "Error while creating patient profile"));
   }
 };
@@ -68,7 +73,8 @@ const updatePatientProfile = async (
   next: NextFunction
 ) => {
   try {
-    const userId = req.user?._id; // Type assertion should be adjusted based on actual JWT payload
+    const userId = req.user?._id;
+
     if (!userId) {
       return next(createHttpError(401, "User not authenticated"));
     }
@@ -86,8 +92,9 @@ const updatePatientProfile = async (
       return next(createHttpError(404, "Patient profile not found"));
     }
 
-    res.json(updatedProfile);
+    res.status(200).json(updatedProfile);
   } catch (err) {
+    console.error(err); // Log the error for debugging
     next(createHttpError(500, "Error while updating patient profile"));
   }
 };

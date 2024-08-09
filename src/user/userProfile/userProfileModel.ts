@@ -9,13 +9,13 @@ const relativeSchema = new Schema<Relative>({
 
 const patientProfileSchema = new Schema<PatientProfile>({
   userId: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true },
-  bloodType: { type: String, required: true },
-  allergies: { type: [String], required: true },
-  primaryCarePhysician: { type: String, required: true },
-  surgeries: { type: [String], required: true },
-  pastMedicalHistory: { type: [String], required: true },
-  relatives: { type: [relativeSchema], required: true },
-  communicableDiseases: { type: [String], required: true },
+  bloodType: { type: String, required: false },
+  allergies: { type: [String], required: false },
+  primaryCarePhysician: { type: String, required: false },
+  surgeries: { type: [String], required: false },
+  pastMedicalHistory: { type: [String], required: false },
+  relatives: { type: [relativeSchema], required: false },
+  communicableDiseases: { type: [String], required: false },
 });
 
 export default mongoose.model<PatientProfile>(
