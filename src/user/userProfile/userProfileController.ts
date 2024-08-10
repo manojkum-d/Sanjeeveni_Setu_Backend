@@ -2,6 +2,7 @@ import { NextFunction, Response } from "express";
 import createHttpError from "http-errors";
 import PatientProfileModel from "./userProfileModel";
 import { AuthenticatedRequest } from "../../middlewares/jwtTokenVerification";
+import userModel from "../userModel";
 
 // Get patient profile
 const getPatientProfile = async (
@@ -58,6 +59,9 @@ const createPatientProfile = async (
       userId,
       ...profileData,
     });
+
+    // Set isHealthFormCompleted to true for the user
+    await userModel.findByIdAndUpdate(userId, { isHealthFormCompleted: true });
 
     res.status(201).json(newProfile);
   } catch (err) {
