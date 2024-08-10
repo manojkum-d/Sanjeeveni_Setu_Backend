@@ -18,7 +18,7 @@ userRouter.post("/login", loginUser);
 userRouter.post("/verify-email-otp", verifyUserEmailOTP);
 userRouter.post("/verify-phone-otp", verifyUserPhoneOTP);
 userRouter.post("/generate-qr-code", createQRCode);
-userRouter.get("/get-qr-code/:hashedUserId", getQRCode);
+userRouter.get("/get-qr-code/:userId", getQRCode);
 userRouter.get("/profile/:userId", verifyJWT, getUserProfile);
 userRouter.get(
   "/hospital/profile/:userId",

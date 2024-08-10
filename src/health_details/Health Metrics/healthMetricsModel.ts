@@ -6,7 +6,8 @@ const healthMetricSchema = new mongoose.Schema({
   heartRate: { type: Number, required: false },
   glucoseLevel: { type: Number, required: false },
   cholesterol: { type: Number, required: false },
-  createdAt: { type: Date, default: Date.now },
+  date: { type: String, required: false },
+  // createdAt: { type: Date, default: Date.now },
 });
 
 export default mongoose.model("HealthMetric", healthMetricSchema);

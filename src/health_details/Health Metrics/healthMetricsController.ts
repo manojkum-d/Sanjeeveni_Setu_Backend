@@ -55,6 +55,7 @@ const createHealthMetric = async (
           heartRate: metric.heartRate,
           glucoseLevel: metric.glucoseLevel,
           cholesterol: metric.cholesterol,
+          date: metric.date,
         });
         return newMetric.save();
       })

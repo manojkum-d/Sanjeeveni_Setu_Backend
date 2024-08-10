@@ -1,4 +1,3 @@
-// qrController.ts
 import { Request, Response, NextFunction } from "express";
 import createHttpError from "http-errors";
 import QRCode from "./qrCodeModel";
