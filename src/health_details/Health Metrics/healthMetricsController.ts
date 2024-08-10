@@ -29,33 +29,41 @@ const verifyJWT = (
   });
 };
 
-// Controller function to create a health metric
+// Controller function to create health metrics
 const createHealthMetric = async (
   req: AuthenticatedRequest,
   res: Response,
   next: NextFunction
 ) => {
   const userId = req.userId;
-  const { bloodPressure, heartRate, glucoseLevel, cholesterol } = req.body;
+  const metrics = req.body.metrics; // Expecting an array of metrics
 
   if (!userId) {
     return next(createHttpError(401, "User ID is missing in request"));
   }
 
+  if (!Array.isArray(metrics) || metrics.length === 0) {
+    return next(createHttpError(400, "Metrics array is empty or invalid"));
+  }
+
   try {
-    const newMetric = new HealthMetric({
-      userId,
-      bloodPressure,
-      heartRate,
-      glucoseLevel,
-      cholesterol,
-    });
-    await newMetric.save();
+    const newMetrics = await Promise.all(
+      metrics.map(async (metric: any) => {
+        const newMetric = new HealthMetric({
+          userId,
+          bloodPressure: metric.bloodPressure,
+          heartRate: metric.heartRate,
+          glucoseLevel: metric.glucoseLevel,
+          cholesterol: metric.cholesterol,
+        });
+        return newMetric.save();
+      })
+    );
     res
       .status(201)
-      .json({ message: "Health metric created successfully", newMetric });
+      .json({ message: "Health metrics created successfully", newMetrics });
   } catch (err) {
-    next(createHttpError(500, "Error while creating health metric"));
+    next(createHttpError(500, "Error while creating health metrics"));
   }
 };
 
@@ -84,13 +92,12 @@ const updateHealthMetric = async (
   }
 };
 
-// Controller function to get health metrics for the authenticated user
 const getHealthMetrics = async (
   req: AuthenticatedRequest,
   res: Response,
   next: NextFunction
 ) => {
-  const userId = req.userId;
+  const userId = req.hospital ? req.params.userId : req.userId;
 
   if (!userId) {
     return next(createHttpError(401, "User ID is missing in request"));

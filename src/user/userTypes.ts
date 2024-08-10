@@ -18,4 +18,5 @@ export interface User extends Document {
   phoneOtpExpiration?: Date;
   isVerified: boolean;
   isAdmin: boolean;
+  isHealthFormCompleted: boolean;
 }

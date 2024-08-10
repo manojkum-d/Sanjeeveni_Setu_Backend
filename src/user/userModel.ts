@@ -19,6 +19,7 @@ const userSchema = new mongoose.Schema<User>({
   phoneOtpExpiration: Date,
   isVerified: { type: Boolean, default: false },
   isAdmin: { type: Boolean, default: false },
+  isHealthFormCompleted: { type: Boolean, default: false },
 });
 
 export default mongoose.model<User>("User", userSchema);

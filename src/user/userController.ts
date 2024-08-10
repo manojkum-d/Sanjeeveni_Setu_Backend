@@ -215,4 +215,32 @@ const loginUser = async (req: Request, res: Response, next: NextFunction) => {
   }
 };
 
-export { createUser, verifyUserEmailOTP, verifyUserPhoneOTP, loginUser };
+const getUserProfile = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  const { userId } = req.params;
+
+  try {
+    const user = await userModel
+      .findById(userId)
+      .select("-password -phoneOtp -phoneOtpExpiration");
+
+    if (!user) {
+      return next(createHttpError(404, "User not found"));
+    }
+
+    res.json(user);
+  } catch (err) {
+    next(createHttpError(500, "Error retrieving user profile"));
+  }
+};
+
+export {
+  createUser,
+  verifyUserEmailOTP,
+  verifyUserPhoneOTP,
+  loginUser,
+  getUserProfile,
+};
