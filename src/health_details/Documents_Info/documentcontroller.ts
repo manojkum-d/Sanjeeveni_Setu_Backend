@@ -3,19 +3,20 @@ import Document from "./documentModel";
 import cloudinary from "../../config/cloudinaryConfig";
 import { unlinkSync } from "fs";
 import createHttpError from "http-errors";
+import path from "path";
 
 const uploadDocument = async (
   req: Request,
   res: Response,
   next: NextFunction
 ) => {
-  const { userId, fileType, date, time } = req.body;
+  const { userId, description } = req.body;
   const file = req.file;
 
   console.log("Request body: ", req.body);
   console.log("File: ", file);
 
-  if (!userId || !fileType || !date || !time || !file) {
+  if (!userId || !description || !file) {
     return res
       .status(400)
       .json({ message: "All required fields must be provided" });
@@ -30,6 +31,12 @@ const uploadDocument = async (
     // Log file information
     console.log("File received: ", file);
 
+    // Derive the document name from the file name
+    const fileName = path.basename(
+      file.originalname,
+      path.extname(file.originalname)
+    );
+
     // Upload to Cloudinary
     const result = await cloudinary.uploader.upload(file.path, {
       folder: "documents",
@@ -42,11 +49,10 @@ const uploadDocument = async (
     // Create document entry in MongoDB
     const newDocument = new Document({
       userId,
-      fileType,
-      date,
-      time,
+      docname: fileName, // Extract name from the file name
+      description,
+      dateTime: new Date(), // Assuming current date and time
       url: result.secure_url,
-      createdAt: new Date(),
     });
 
     await newDocument.save();

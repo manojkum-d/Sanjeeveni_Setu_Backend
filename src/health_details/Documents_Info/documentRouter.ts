@@ -7,6 +7,7 @@ import {
   deleteDocument,
 } from "./documentcontroller";
 import path from "path";
+import { verifyHospitalToken } from "../../middlewares/verifyHospitalToken";
 
 const documentRouter = express.Router();
 
@@ -40,6 +41,11 @@ documentRouter.post(
   uploadDocument
 );
 documentRouter.get("/user/:userId", verifyJWT, getDocumentsByUser);
+documentRouter.get(
+  "/hospital/:userId",
+  verifyHospitalToken,
+  getDocumentsByUser
+);
 documentRouter.delete("/:documentId", verifyJWT, deleteDocument);
 
 export default documentRouter;
