@@ -209,7 +209,11 @@ const loginUser = async (req: Request, res: Response, next: NextFunction) => {
       algorithm: "HS256",
     });
 
-    res.json({ accessToken: token });
+    // Include isHealthFormCompleted in the response
+    res.json({
+      accessToken: token,
+      isHealthFormCompleted: user.isHealthFormCompleted,
+    });
   } catch (err) {
     next(createHttpError(500, "Error during login process"));
   }
