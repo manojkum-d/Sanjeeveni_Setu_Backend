@@ -6,7 +6,6 @@ const medicationReminderSchema = new mongoose.Schema({
   dosage: { type: String, required: true },
   frequency: { type: String, required: true },
   nextDose: { type: String, required: true },
-  documentUrl: { type: String }, // Optional document URL
   createdAt: { type: Date, default: Date.now },
 });
 

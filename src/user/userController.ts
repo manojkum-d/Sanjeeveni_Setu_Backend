@@ -9,6 +9,7 @@ import { User } from "./userTypes";
 import crypto from "crypto";
 import transporter from "../config/nodemailer";
 import twilioClient from "../config/twilio";
+import { AuthenticatedRequest } from "../middlewares/jwtTokenVerification";
 
 const createUser = async (req: Request, res: Response, next: NextFunction) => {
   const {
@@ -241,10 +242,43 @@ const getUserProfile = async (
   }
 };
 
+const updateUserDetails = async (
+  req: AuthenticatedRequest,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const userId = req.user?._id;
+
+    if (!userId) {
+      return next(createHttpError(401, "User not authenticated"));
+    }
+
+    const updateData = req.body;
+
+    // Update user details
+    const updatedUser = await userModel.findByIdAndUpdate(
+      userId,
+      { $set: updateData },
+      { new: true }
+    );
+
+    if (!updatedUser) {
+      return next(createHttpError(404, "User not found"));
+    }
+
+    res.status(200).json(updatedUser);
+  } catch (err) {
+    console.error(err); // Log the error for debugging
+    next(createHttpError(500, "Error while updating user details"));
+  }
+};
+
 export {
   createUser,
   verifyUserEmailOTP,
   verifyUserPhoneOTP,
   loginUser,
   getUserProfile,
+  updateUserDetails,
 };

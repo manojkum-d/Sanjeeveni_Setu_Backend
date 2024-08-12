@@ -3,6 +3,7 @@ import {
   createUser,
   getUserProfile,
   loginUser,
+  updateUserDetails,
   verifyUserEmailOTP,
   verifyUserPhoneOTP,
 } from "./userController";
@@ -25,5 +26,8 @@ userRouter.get(
   verifyHospitalToken,
   getUserProfile
 );
+userRouter.put("/update", verifyJWT, updateUserDetails);
+
+userRouter.get;
 
 export default userRouter;
