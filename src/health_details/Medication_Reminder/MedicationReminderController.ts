@@ -1,13 +1,15 @@
 import { Request, Response, NextFunction } from "express";
 import MedicationReminder from "./MedicationReminderModel";
 import createHttpError from "http-errors";
+import { AuthenticatedRequest } from "../../middlewares/jwtTokenVerification";
 
 const createMedicationReminder = async (
-  req: Request,
+  req: AuthenticatedRequest,
   res: Response,
   next: NextFunction
 ) => {
-  const { userId, medicationName, dosage, frequency, nextDose } = req.body;
+  const userId = req.user?._id;
+  const { medicationName, dosage, frequency, nextDose } = req.body;
 
   if (!userId || !medicationName || !dosage || !frequency || !nextDose) {
     return next(createHttpError(400, "All required fields must be provided"));
@@ -33,7 +35,7 @@ const createMedicationReminder = async (
 };
 
 const getMedicationRemindersByUser = async (
-  req: Request,
+  req: AuthenticatedRequest,
   res: Response,
   next: NextFunction
 ) => {
