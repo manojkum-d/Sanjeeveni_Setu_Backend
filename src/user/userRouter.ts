@@ -26,7 +26,7 @@ userRouter.get(
   verifyHospitalToken,
   getUserProfile
 );
-userRouter.put("/update", verifyJWT, updateUserDetails);
+userRouter.put("/update-profile", verifyJWT, updateUserDetails);
 
 userRouter.get;
 
