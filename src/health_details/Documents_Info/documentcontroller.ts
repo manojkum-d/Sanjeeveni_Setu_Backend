@@ -4,17 +4,20 @@ import cloudinary from "../../config/cloudinaryConfig";
 import { unlinkSync } from "fs";
 import createHttpError from "http-errors";
 import path from "path";
+import { AuthenticatedRequest } from "../../middlewares/jwtTokenVerification";
 
 const uploadDocument = async (
-  req: Request,
+  req: AuthenticatedRequest,
   res: Response,
   next: NextFunction
 ) => {
-  const { userId, description } = req.body;
+  const { description } = req.body;
   const file = req.file;
+  const userId = req.user?._id;
 
   console.log("Request body: ", req.body);
   console.log("File: ", file);
+  console.log("User ID: ", userId);
 
   if (!userId || !description || !file) {
     return res
@@ -73,13 +76,17 @@ const uploadDocument = async (
 };
 
 const getDocumentsByUser = async (
-  req: Request,
+  req: AuthenticatedRequest,
   res: Response,
   next: NextFunction
 ) => {
-  const userId = req.params.userId;
+  const userId = req.user?._id;
 
   try {
+    if (!userId) {
+      return next(createHttpError(401, "User not authenticated"));
+    }
+
     const documents = await Document.find({ userId });
     res.json({ documents });
   } catch (err) {
@@ -88,16 +95,25 @@ const getDocumentsByUser = async (
 };
 
 const deleteDocument = async (
-  req: Request,
+  req: AuthenticatedRequest,
   res: Response,
   next: NextFunction
 ) => {
   const { documentId } = req.params;
+  const userId = req.user?._id;
 
   try {
+    if (!userId) {
+      return next(createHttpError(401, "User not authenticated"));
+    }
+
     const document = await Document.findById(documentId);
     if (!document) {
       return next(createHttpError(404, "Document not found"));
+    }
+
+    if (document.userId.toString() !== userId.toString()) {
+      return next(createHttpError(403, "Unauthorized to delete this document"));
     }
 
     const publicId = document.url?.split("/").pop()?.split(".")[0]; // Extract public ID from URL
