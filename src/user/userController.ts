@@ -214,6 +214,7 @@ const loginUser = async (req: Request, res: Response, next: NextFunction) => {
     res.json({
       accessToken: token,
       isHealthFormCompleted: user.isHealthFormCompleted,
+      userId: user._id,
     });
   } catch (err) {
     next(createHttpError(500, "Error during login process"));
