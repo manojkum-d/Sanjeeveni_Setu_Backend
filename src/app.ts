@@ -9,6 +9,7 @@ import medicationReminderRouter from "./health_details/Medication_Reminder/Medic
 import adminRouter from "./admin/adminRouter";
 import patientProfileRouter from "./user/userProfile/userProfileRoute";
 import prescriptionRouter from "./health_details/Prescription_Info/prescriptionRoute";
+import LabRouter from "./health_details/Lab_Results/LabReportsRoute";
 
 const app = express();
 
@@ -34,6 +35,7 @@ app.use("/api/hospitals", hospitalRouter);
 app.use("/api/health-metrics", healthMetricsRouter);
 app.use("/api/documents", documentRouter);
 app.use("/api/prescription", prescriptionRouter);
+app.use("/api/labreports", LabRouter);
 app.use("/api/medication-reminders", medicationReminderRouter);
 app.use("/api/admin", adminRouter); // Use the admin router
 
