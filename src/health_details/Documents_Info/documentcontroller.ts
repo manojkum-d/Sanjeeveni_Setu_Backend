@@ -13,11 +13,7 @@ const uploadDocument = async (
 ) => {
   const { description } = req.body;
   const file = req.file;
-  const userId = req.user?._id;
-
-  console.log("Request body: ", req.body);
-  console.log("File: ", file);
-  console.log("User ID: ", userId);
+  const userId = req.user?._id || req.hospital?._id; // Handle both user and hospital IDs
 
   if (!userId || !description || !file) {
     return res
@@ -31,9 +27,6 @@ const uploadDocument = async (
       throw new Error("No file received");
     }
 
-    // Log file information
-    console.log("File received: ", file);
-
     // Derive the document name from the file name
     const fileName = path.basename(
       file.originalname,
@@ -46,15 +39,12 @@ const uploadDocument = async (
       resource_type: "auto", // This allows Cloudinary to automatically detect the file type
     });
 
-    // Log Cloudinary response
-    console.log("Cloudinary upload result: ", result);
-
     // Create document entry in MongoDB
     const newDocument = new Document({
       userId,
-      docname: fileName, // Extract name from the file name
+      docname: fileName,
       description,
-      dateTime: new Date(), // Assuming current date and time
+      dateTime: new Date(),
       url: result.secure_url,
     });
 
@@ -80,11 +70,11 @@ const getDocumentsByUser = async (
   res: Response,
   next: NextFunction
 ) => {
-  const userId = req.user?._id;
+  const userId = req.hospital ? req.params.userId : req.user?._id;
 
   try {
     if (!userId) {
-      return next(createHttpError(401, "User not authenticated"));
+      return next(createHttpError(401, "User or hospital not authenticated"));
     }
 
     const documents = await Document.find({ userId });
@@ -100,11 +90,11 @@ const deleteDocument = async (
   next: NextFunction
 ) => {
   const { documentId } = req.params;
-  const userId = req.user?._id;
+  const userId = req.user?._id || req.hospital?._id; // Handle both user and hospital IDs
 
   try {
     if (!userId) {
-      return next(createHttpError(401, "User not authenticated"));
+      return next(createHttpError(401, "User or hospital not authenticated"));
     }
 
     const document = await Document.findById(documentId);
