@@ -112,4 +112,18 @@ const approveHospital = async (
   }
 };
 
-export { createHospital, loginHospital, approveHospital };
+// Get all hospitals
+const getAllHospitals = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const hospitals = await hospitalModel.find();
+    res.json(hospitals);
+  } catch (err) {
+    next(createHttpError(500, "Error while retrieving hospitals"));
+  }
+};
+
+export { createHospital, loginHospital, approveHospital, getAllHospitals };

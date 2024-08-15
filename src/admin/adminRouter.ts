@@ -1,6 +1,6 @@
 import { Router } from "express";
 import { verifyJWT } from "../middlewares/jwtTokenVerification";
-import { checkAdmin } from "../middlewares/checkAdmin";
+import { verifyAdminToken } from "../middlewares/checkAdmin";
 import {
   registerAdmin,
   loginAdmin,
@@ -16,9 +16,9 @@ adminRouter.post("/login", loginAdmin);
 adminRouter.put(
   "/hospital/approve/:hospitalId",
   verifyJWT,
-  checkAdmin,
+  verifyAdminToken,
   approveHospital
 );
-adminRouter.get("/hospitals", verifyJWT, checkAdmin, getHospitals);
+adminRouter.get("/hospitals", verifyJWT, verifyAdminToken, getHospitals);
 
 export default adminRouter;

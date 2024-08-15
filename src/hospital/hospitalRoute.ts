@@ -1,7 +1,7 @@
 // Example usage in a route
 import { Router } from "express";
 import { verifyJWT } from "../middlewares/jwtTokenVerification";
-import { checkAdmin } from "../middlewares/checkAdmin";
+import { verifyAdminToken } from "../middlewares/checkAdmin";
 import {
   approveHospital,
   createHospital,
@@ -19,7 +19,7 @@ hospitalRouter.get("/get-qr-code/:userId", verifyHospitalToken, getQRCode);
 hospitalRouter.put(
   "/hospital/approve/:hospitalId",
   verifyJWT,
-  checkAdmin,
+  verifyAdminToken,
   approveHospital
 );
 

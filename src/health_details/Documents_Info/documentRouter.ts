@@ -3,6 +3,7 @@ import { verifyJWT } from "../../middlewares/jwtTokenVerification";
 import multer from "multer";
 import {
   uploadDocument,
+  uploadDocumentByHospital,
   getDocumentsByUser,
   deleteDocument,
 } from "./documentcontroller";
@@ -39,6 +40,12 @@ documentRouter.post(
   verifyJWT,
   upload.single("document"),
   uploadDocument
+);
+documentRouter.post(
+  "/hospital/upload/:userId",
+  verifyHospitalToken,
+  upload.single("document"),
+  uploadDocumentByHospital
 );
 documentRouter.get("/user/:userId", verifyJWT, getDocumentsByUser);
 documentRouter.get(

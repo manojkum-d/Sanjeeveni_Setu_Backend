@@ -26,8 +26,6 @@ export const verifyHospitalToken = (
     if (err) {
       return next(createHttpError(401, "Invalid token"));
     }
-
-    console.log("Decoded hospital token:", decoded); // Add this line for debugging
     req.hospital = decoded;
     next();
   });

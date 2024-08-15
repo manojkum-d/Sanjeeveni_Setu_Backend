@@ -65,6 +65,65 @@ const uploadDocument = async (
   }
 };
 
+const uploadDocumentByHospital = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  const { userId } = req.params; // Take userId from URL
+  const { description } = req.body;
+  const file = req.file;
+
+  if (!userId || !description || !file) {
+    return res
+      .status(400)
+      .json({ message: "All required fields must be provided" });
+  }
+
+  try {
+    // Ensure file is being received
+    if (!file) {
+      throw new Error("No file received");
+    }
+
+    // Derive the document name from the file name
+    const fileName = path.basename(
+      file.originalname,
+      path.extname(file.originalname)
+    );
+
+    // Upload to Cloudinary
+    const result = await cloudinary.uploader.upload(file.path, {
+      folder: "documents",
+      resource_type: "auto", // This allows Cloudinary to automatically detect the file type
+    });
+
+    // Create document entry in MongoDB
+    const newDocument = new Document({
+      userId,
+      docname: fileName,
+      description,
+      dateTime: new Date(),
+      url: result.secure_url,
+    });
+
+    await newDocument.save();
+
+    // Delete local file after upload
+    unlinkSync(file.path);
+
+    res
+      .status(201)
+      .json({ message: "Document created successfully", newDocument });
+  } catch (err: any) {
+    console.error("Error uploading to Cloudinary: ", err);
+    res.status(500).json({
+      message: "Error uploading to Cloudinary",
+      errorStack: err.stack,
+    });
+  }
+};
+
 const getDocumentsByUser = async (
   req: AuthenticatedRequest,
   res: Response,
@@ -118,4 +177,9 @@ const deleteDocument = async (
   }
 };
 
-export { uploadDocument, getDocumentsByUser, deleteDocument };
+export {
+  uploadDocument,
+  uploadDocumentByHospital,
+  getDocumentsByUser,
+  deleteDocument,
+};

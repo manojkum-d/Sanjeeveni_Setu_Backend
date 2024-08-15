@@ -1,28 +1,43 @@
-// src/middlewares/checkAdmin.ts
-import { NextFunction, Request, Response } from "express";
+import { Request, Response, NextFunction } from "express";
+import jwt from "jsonwebtoken";
 import createHttpError from "http-errors";
-import { Hospital } from "../hospital/hospitalTypes";
-import { User } from "../user/userTypes";
+import { config } from "../config/config";
+import adminModel from "../admin/adminModel"; // Import your admin model
 
-// Extend the Express Request interface to include userId
-interface AuthenticatedRequest extends Request {
-  user?: Hospital | User; // Adjust based on your application logic
+declare module "express-serve-static-core" {
+  interface Request {
+    admin?: any; // Replace `any` with the actual admin token structure if known
+  }
 }
 
-const checkAdmin = (
-  req: AuthenticatedRequest,
+export const verifyAdminToken = async (
+  req: Request,
   res: Response,
   next: NextFunction
 ) => {
-  if (!req.user) {
-    return next(createHttpError(401, "User not authenticated"));
+  const authHeader = req.headers.authorization;
+
+  if (!authHeader) {
+    return next(createHttpError(401, "Authorization header is missing"));
   }
 
-  if (!req.user.isAdmin) {
-    return next(createHttpError(403, "Admin access required"));
-  }
+  const token = authHeader.split(" ")[1];
 
-  next();
+  jwt.verify(token, config.jwtSecret as string, async (err, decoded) => {
+    if (err) {
+      return next(createHttpError(401, "Invalid token"));
+    }
+
+    try {
+      const admin = await adminModel.findById(decoded?.sub);
+      if (!admin) {
+        return next(createHttpError(404, "Admin not found"));
+      }
+
+      req.admin = admin; // Store the admin details in the request object
+      next();
+    } catch (err) {
+      next(createHttpError(500, "Error verifying admin"));
+    }
+  });
 };
-
-export { checkAdmin };
