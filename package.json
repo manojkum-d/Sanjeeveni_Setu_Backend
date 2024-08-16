@@ -2,10 +2,10 @@
   "name": "sanjeevni_setu_backend",
   "version": "1.0.0",
   "description": "Sanjeevni setu EHR rest api.",
-  "main": "index.js",
+  "main": "dist/server.js",
   "type": "module",
   "scripts": {
-    "build": "npm install && tsc",
+    "build": "tsc",
     "start": "node dist/server.js",
     "dev": "nodemon dist/server.js",
     "postinstall": "npm run build"
@@ -52,5 +52,8 @@
     "sanjeevni_setu_backend": "file:",
     "tesseract.js": "^5.1.0",
     "twilio": "^5.2.2"
+  },
+  "engines": {
+    "node": ">=18.0.0"
   }
 }
