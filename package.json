@@ -5,7 +5,7 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "build": "tsc",
+    "build": "npm install && tsc",
     "start": "node dist/server.js",
     "dev": "nodemon dist/server.js",
     "postinstall": "npm run build"
