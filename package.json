@@ -2,7 +2,7 @@
   "name": "sanjeevni_setu_backend",
   "version": "1.0.0",
   "description": "Sanjeevni setu EHR rest api.",
-  "main": "dist/server.js",
+  "main": "server.js",
   "type": "module",
   "scripts": {
     "build": "tsc",
