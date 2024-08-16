@@ -79,7 +79,7 @@ const createUser = async (req: Request, res: Response, next: NextFunction) => {
       text: `Your OTP code is ${emailOtp}. It will expire in 10 minutes.`,
     };
 
-    transporter.sendMail(mailOptions, (error, info) => {
+    transporter.sendMail(mailOptions, (error: Error | null, info: any) => {
       if (error) {
         return next(createHttpError(500, "Failed to send OTP email"));
       }
