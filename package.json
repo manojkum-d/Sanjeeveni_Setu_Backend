@@ -4,7 +4,8 @@
   "description": "Sanjeevni setu EHR rest api.",
   "main": "index.js",
   "scripts": {
-    "dev": "nodemon server.ts"
+    "dev": "nodemon server.ts",
+    "start": "ts-node server.ts"
   },
   "keywords": [
     "rest",
