@@ -1,10 +1,12 @@
 import { NextFunction, Request, Response } from "express";
-import hospitalModel from "./hospitalModel";
+import hospitalModel from "./hospitalModel.js";
 import createHttpError from "http-errors";
 import bcrypt from "bcrypt";
-import { sign } from "jsonwebtoken";
-import { config } from "../config/config";
-import { Hospital } from "./hospitalTypes";
+import pkg from "jsonwebtoken";
+import { config } from "../config/config.js";
+import { Hospital } from "./hospitalTypes.js";
+
+const { sign } = pkg;
 
 const createHospital = async (
   req: Request,

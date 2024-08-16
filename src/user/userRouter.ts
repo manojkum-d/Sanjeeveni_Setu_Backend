@@ -6,10 +6,10 @@ import {
   updateUserDetails,
   verifyUserEmailOTP,
   verifyUserPhoneOTP,
-} from "./userController";
-import { createQRCode, getQRCode } from "../qr-code/qrController";
-import { verifyJWT } from "../middlewares/jwtTokenVerification";
-import { verifyHospitalToken } from "../middlewares/verifyHospitalToken";
+} from "./userController.js";
+import { createQRCode, getQRCode } from "../qr-code/qrController.js";
+import { verifyJWT } from "../middlewares/jwtTokenVerification.js";
+import { verifyHospitalToken } from "../middlewares/verifyHospitalToken.js";
 
 const userRouter = express.Router();
 

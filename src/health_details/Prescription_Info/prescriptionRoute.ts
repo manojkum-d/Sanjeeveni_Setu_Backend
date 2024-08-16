@@ -1,11 +1,11 @@
 import express from "express";
-import { verifyJWT } from "../../middlewares/jwtTokenVerification";
+import { verifyJWT } from "../../middlewares/jwtTokenVerification.js";
 import {
   uploadPrescription,
   getPrescriptionsByUser,
   deletePrescription,
-} from "./prescriptionController";
-import { verifyHospitalToken } from "../../middlewares/verifyHospitalToken";
+} from "./prescriptionController.js";
+import { verifyHospitalToken } from "../../middlewares/verifyHospitalToken.js";
 import multer from "multer";
 import path from "path";
 

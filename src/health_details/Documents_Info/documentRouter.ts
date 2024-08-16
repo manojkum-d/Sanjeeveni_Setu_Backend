@@ -1,14 +1,14 @@
 import express from "express";
-import { verifyJWT } from "../../middlewares/jwtTokenVerification";
+import { verifyJWT } from "../../middlewares/jwtTokenVerification.js";
 import multer from "multer";
 import {
   uploadDocument,
   uploadDocumentByHospital,
   getDocumentsByUser,
   deleteDocument,
-} from "./documentcontroller";
+} from "./documentcontroller.js";
 import path from "path";
-import { verifyHospitalToken } from "../../middlewares/verifyHospitalToken";
+import { verifyHospitalToken } from "../../middlewares/verifyHospitalToken.js";
 
 const documentRouter = express.Router();
 

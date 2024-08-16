@@ -1,12 +1,12 @@
 import { Router } from "express";
-import { verifyJWT } from "../middlewares/jwtTokenVerification";
-import { verifyAdminToken } from "../middlewares/checkAdmin";
+import { verifyJWT } from "../middlewares/jwtTokenVerification.js";
+import { verifyAdminToken } from "../middlewares/checkAdmin.js";
 import {
   registerAdmin,
   loginAdmin,
   approveHospital,
   getHospitals,
-} from "./adminController";
+} from "./adminController.js";
 
 const adminRouter = Router();
 
@@ -14,7 +14,7 @@ const adminRouter = Router();
 adminRouter.post("/register", registerAdmin);
 adminRouter.post("/login", loginAdmin);
 adminRouter.put(
-  "/hospital/approve/:hospitalId",
+  "/hospital/approve/.js",
   verifyJWT,
   verifyAdminToken,
   approveHospital

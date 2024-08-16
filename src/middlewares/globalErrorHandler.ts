@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from "express";
 import { HttpError } from "http-errors";
-import { config } from "../config/config";
+import { config } from "../config/config.js";
 
 const globalErrorHandler = (
   err: HttpError,

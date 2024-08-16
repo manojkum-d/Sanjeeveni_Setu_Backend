@@ -1,9 +1,9 @@
 import { NextFunction, Request, Response } from "express";
 import jwt from "jsonwebtoken";
 import createHttpError from "http-errors";
-import { config } from "../config/config";
-import { Hospital } from "../hospital/hospitalTypes";
-import { User } from "../user/userTypes";
+import { config } from "../config/config.js";
+import { Hospital } from "../hospital/hospitalTypes.js";
+import { User } from "../user/userTypes.js";
 
 // Extend the Express Request interface to include user
 export interface AuthenticatedRequest extends Request {

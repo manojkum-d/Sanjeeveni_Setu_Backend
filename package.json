@@ -3,9 +3,12 @@
   "version": "1.0.0",
   "description": "Sanjeevni setu EHR rest api.",
   "main": "index.js",
+  "type": "module",
   "scripts": {
-    "start": "npx ts-node server.ts",
-    "dev": "nodemon server.ts"
+    "build": "tsc ",
+    "start": "node dist/server.js",
+    "dev": "nodemon dist/server.js",
+    "postinstall": "npm run build"
   },
   "keywords": [
     "rest",

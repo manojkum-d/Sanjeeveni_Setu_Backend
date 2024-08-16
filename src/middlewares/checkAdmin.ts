@@ -1,8 +1,8 @@
 import { Request, Response, NextFunction } from "express";
 import jwt from "jsonwebtoken";
 import createHttpError from "http-errors";
-import { config } from "../config/config";
-import adminModel from "../admin/adminModel"; // Import your admin model
+import { config } from "../config/config.js";
+import adminModel from "../admin/adminModel.js"; // Import your admin model
 
 declare module "express-serve-static-core" {
   interface Request {

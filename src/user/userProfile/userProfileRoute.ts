@@ -3,9 +3,9 @@ import {
   createPatientProfile,
   updatePatientProfile,
   getPatientProfile,
-} from "./userProfileController";
-import { verifyJWT } from "../../middlewares/jwtTokenVerification"; // Assuming you have a token verification middleware
-import { verifyHospitalToken } from "../../middlewares/verifyHospitalToken";
+} from "./userProfileController.js";
+import { verifyJWT } from "../../middlewares/jwtTokenVerification.js"; // Assuming you have a token verification middleware
+import { verifyHospitalToken } from "../../middlewares/verifyHospitalToken.js";
 
 const patientProfileRouter = express.Router();
 

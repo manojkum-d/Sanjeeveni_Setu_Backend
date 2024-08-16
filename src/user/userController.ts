@@ -1,16 +1,19 @@
 import { NextFunction, Request, Response } from "express";
 import createHttpError from "http-errors";
-import userModel from "./userModel";
-import userOTPVerificationModel from "./userOTPVerficationModel";
+import userModel from "./userModel.js";
+import userOTPVerificationModel from "./userOTPVerficationModel.js";
 import bcrypt from "bcrypt";
-import { sign } from "jsonwebtoken";
-import { config } from "../config/config";
-import { User } from "./userTypes";
+import pkg from "jsonwebtoken";
+import { config } from "../config/config.js";
+import { User } from "./userTypes.js";
 import crypto from "crypto";
-import transporter from "../config/nodemailer";
-import twilioClient from "../config/twilio";
-import { AuthenticatedRequest } from "../middlewares/jwtTokenVerification";
+import transporter from "../config/nodemailer.js";
+import twilioClient from "../config/twilio.js";
+import { AuthenticatedRequest } from "../middlewares/jwtTokenVerification.js";
+// import nodemailer from "nodemailer";
 import mongoose from "mongoose";
+
+const { sign } = pkg;
 
 const createUser = async (req: Request, res: Response, next: NextFunction) => {
   const {

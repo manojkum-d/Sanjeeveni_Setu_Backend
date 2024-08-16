@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction } from "express";
-import MedicationReminder from "./MedicationReminderModel";
+import MedicationReminder from "./MedicationReminderModel.js";
 import createHttpError from "http-errors";
-import { AuthenticatedRequest } from "../../middlewares/jwtTokenVerification";
+import { AuthenticatedRequest } from "../../middlewares/jwtTokenVerification.js";
 
 const createMedicationReminder = async (
   req: AuthenticatedRequest,

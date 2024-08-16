@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import { QRCodeDocument } from "./qr_Type";
+import { QRCodeDocument } from "./qr_Type.js";
 
 const qrCodeSchema = new mongoose.Schema<QRCodeDocument>({
   code: { type: String, required: true, unique: true },

@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import { UserOTP } from "./userOTPTypes";
+import { UserOTP } from "./userOTPTypes.js";
 
 const userOTPVerificationSchema = new mongoose.Schema<UserOTP>({
   userId: { type: String, required: true },

@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import { Hospital } from "./hospitalTypes";
+import { Hospital } from "./hospitalTypes.js";
 
 const hospitalSchema = new mongoose.Schema<Hospital>({
   name: { type: String, required: true },

@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction } from "express";
 import jwt from "jsonwebtoken";
 import createHttpError from "http-errors";
-import { config } from "../config/config";
+import { config } from "../config/config.js";
 
 declare module "express-serve-static-core" {
   interface Request {

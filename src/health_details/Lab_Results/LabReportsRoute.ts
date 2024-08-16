@@ -7,9 +7,9 @@ import {
   uploadLabReport,
   getLabReportsByUser,
   deleteLabReport,
-} from "./LabReportsControllerts";
-import { verifyJWT } from "../../middlewares/jwtTokenVerification";
-import { verifyHospitalToken } from "../../middlewares/verifyHospitalToken";
+} from "./LabReportsControllerts.js";
+import { verifyJWT } from "../../middlewares/jwtTokenVerification.js";
+import { verifyHospitalToken } from "../../middlewares/verifyHospitalToken.js";
 import path from "path";
 
 const LabRouter = express.Router();

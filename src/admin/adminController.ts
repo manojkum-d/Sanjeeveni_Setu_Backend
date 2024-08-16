@@ -1,10 +1,12 @@
 import { NextFunction, Request, Response } from "express";
 import bcrypt from "bcrypt";
-import { sign } from "jsonwebtoken";
+import pkg from "jsonwebtoken";
 import createHttpError from "http-errors";
-import adminModel from "./adminModel";
-import hospitalModel from "../hospital/hospitalModel";
-import { config } from "../config/config";
+import adminModel from "./adminModel.js";
+import hospitalModel from "../hospital/hospitalModel.js";
+import { config } from "../config/config.js";
+
+const { sign } = pkg;
 
 const registerAdmin = async (
   req: Request,

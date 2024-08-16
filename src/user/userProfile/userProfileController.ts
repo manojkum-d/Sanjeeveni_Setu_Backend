@@ -1,8 +1,8 @@
 import { NextFunction, Response } from "express";
 import createHttpError from "http-errors";
-import PatientProfileModel from "./userProfileModel";
-import { AuthenticatedRequest } from "../../middlewares/jwtTokenVerification";
-import userModel from "../userModel";
+import PatientProfileModel from "./userProfileModel.js";
+import { AuthenticatedRequest } from "../../middlewares/jwtTokenVerification.js";
+import userModel from "../userModel.js";
 
 // Get patient profile
 const getPatientProfile = async (

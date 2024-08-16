@@ -1,15 +1,15 @@
 import express from "express";
 import cors from "cors"; // Add this line
-import globalErrorHandler from "./middlewares/globalErrorHandler";
-import userRouter from "./user/userRouter";
-import hospitalRouter from "./hospital/hospitalRoute";
-import healthMetricsRouter from "./health_details/Health Metrics/healthMetricsRouter";
-import documentRouter from "./health_details/Documents_Info/documentRouter";
-import medicationReminderRouter from "./health_details/Medication_Reminder/MedicationReminderRouter";
-import adminRouter from "./admin/adminRouter";
-import patientProfileRouter from "./user/userProfile/userProfileRoute";
-import prescriptionRouter from "./health_details/Prescription_Info/prescriptionRoute";
-import LabRouter from "./health_details/Lab_Results/LabReportsRoute";
+import globalErrorHandler from "./middlewares/globalErrorHandler.js";
+import userRouter from "./user/userRouter.js";
+import hospitalRouter from "./hospital/hospitalRoute.js";
+import healthMetricsRouter from "./health_details/Health Metrics/healthMetricsRouter.js";
+import documentRouter from "./health_details/Documents_Info/documentRouter.js";
+import medicationReminderRouter from "./health_details/Medication_Reminder/MedicationReminderRouter.js";
+import adminRouter from "./admin/adminRouter.js";
+import patientProfileRouter from "./user/userProfile/userProfileRoute.js";
+import prescriptionRouter from "./health_details/Prescription_Info/prescriptionRoute.js";
+import LabRouter from "./health_details/Lab_Results/LabReportsRoute.js";
 
 const app = express();
 

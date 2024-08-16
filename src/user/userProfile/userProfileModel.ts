@@ -1,5 +1,5 @@
 import mongoose, { Schema } from "mongoose";
-import { PatientProfile, Relative } from "./userProfileType";
+import { PatientProfile, Relative } from "./userProfileType.js";
 
 const relativeSchema = new Schema<Relative>({
   name: { type: String, required: true },

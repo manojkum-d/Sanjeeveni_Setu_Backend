@@ -5,8 +5,8 @@ import {
   updateHealthMetric,
   getHealthMetrics,
   deleteHealthMetric,
-} from "./healthMetricsController";
-import { verifyHospitalToken } from "../../middlewares/verifyHospitalToken";
+} from "./healthMetricsController.js";
+import { verifyHospitalToken } from "../../middlewares/verifyHospitalToken.js";
 
 const healthMatricsRouter = express.Router();
 

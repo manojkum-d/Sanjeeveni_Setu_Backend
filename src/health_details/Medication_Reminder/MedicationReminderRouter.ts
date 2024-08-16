@@ -1,11 +1,11 @@
 import express from "express";
-import { verifyJWT } from "../../middlewares/jwtTokenVerification";
+import { verifyJWT } from "../../middlewares/jwtTokenVerification.js";
 import {
   createMedicationReminder,
   getMedicationRemindersByUser,
   deleteMedicationReminder,
-} from "./MedicationReminderController";
-import { verifyHospitalToken } from "../../middlewares/verifyHospitalToken";
+} from "./MedicationReminderController.js";
+import { verifyHospitalToken } from "../../middlewares/verifyHospitalToken.js";
 
 const medicationReminderRouter = express.Router();
 

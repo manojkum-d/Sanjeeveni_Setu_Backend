@@ -1,8 +1,8 @@
 import { NextFunction, Request, Response } from "express";
 import createHttpError from "http-errors";
 import jwt from "jsonwebtoken";
-import { config } from "../../config/config";
-import HealthMetric from "./healthMetricsModel";
+import { config } from "../../config/config.js";
+import HealthMetric from "./healthMetricsModel.js";
 
 // Extend the Express Request interface to include userId
 interface AuthenticatedRequest extends Request {

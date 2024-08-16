@@ -1,11 +1,11 @@
 import { Request, Response, NextFunction } from "express";
-import Prescription from "./prescription_Model";
-import cloudinary from "../../config/cloudinaryConfig"; // Ensure this file exports a configured cloudinary instance
+import Prescription from "./prescription_Model.js";
+import cloudinary from "../../config/cloudinaryConfig.js"; // Ensure this file exports a configured cloudinary instance
 import { unlinkSync } from "fs";
 import createHttpError from "http-errors";
 import path from "path";
 import multer from "multer";
-import { AuthenticatedRequest } from "../../middlewares/jwtTokenVerification";
+import { AuthenticatedRequest } from "../../middlewares/jwtTokenVerification.js";
 
 // Multer setup for handling file uploads
 const storage = multer.diskStorage({

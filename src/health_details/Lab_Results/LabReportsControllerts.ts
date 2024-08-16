@@ -1,13 +1,13 @@
 // controllers/labReportController.ts
 
 import { Request, Response, NextFunction } from "express";
-import LabReport from "./LabReportsModel";
-import cloudinary from "../../config/cloudinaryConfig"; // Ensure this file exports a configured Cloudinary instance
+import LabReport from "./LabReportsModel.js";
+import cloudinary from "../../config/cloudinaryConfig.js"; // Ensure this file exports a configured Cloudinary instance
 import { unlinkSync } from "fs";
 import createHttpError from "http-errors";
 import path from "path";
 import multer from "multer";
-import { AuthenticatedRequest } from "../../middlewares/jwtTokenVerification";
+import { AuthenticatedRequest } from "../../middlewares/jwtTokenVerification.js";
 
 // Multer setup for handling file uploads
 const storage = multer.diskStorage({

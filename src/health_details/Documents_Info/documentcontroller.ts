@@ -1,10 +1,10 @@
 import { Request, Response, NextFunction } from "express";
-import Document from "./documentModel";
-import cloudinary from "../../config/cloudinaryConfig";
+import Document from "./documentModel.js";
+import cloudinary from "../../config/cloudinaryConfig.js";
 import { unlinkSync } from "fs";
 import createHttpError from "http-errors";
 import path from "path";
-import { AuthenticatedRequest } from "../../middlewares/jwtTokenVerification";
+import { AuthenticatedRequest } from "../../middlewares/jwtTokenVerification.js";
 
 const uploadDocument = async (
   req: AuthenticatedRequest,

@@ -1,9 +1,11 @@
 import { Request, Response, NextFunction } from "express";
 import createHttpError from "http-errors";
-import QRCode from "./qrCodeModel";
-import { verify } from "jsonwebtoken";
-import { DecodedToken } from "./qr_Type";
-import { config } from "../config/config";
+import QRCode from "./qrCodeModel.js";
+import pkg from "jsonwebtoken";
+import { DecodedToken } from "./qr_Type.js";
+import { config } from "../config/config.js";
+
+const { verify } = pkg;
 
 const createQRCode = async (
   req: Request,
