@@ -4,6 +4,7 @@
   "description": "Sanjeevni setu EHR rest api.",
   "main": "index.js",
   "scripts": {
+    "start": "npx ts-node server.ts",
     "dev": "nodemon server.ts"
   },
   "keywords": [
@@ -24,7 +25,6 @@
     "@types/nodemailer": "^6.4.15",
     "globals": "^15.7.0",
     "mongoose": "^8.4.4",
-    "nodemon": "^3.1.4",
     "ts-node": "^10.9.2",
     "typescript": "^5.5.3"
   },
