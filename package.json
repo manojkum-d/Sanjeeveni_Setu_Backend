@@ -8,7 +8,7 @@
     "build": "tsc",
     "start": "node dist/server.js",
     "dev": "nodemon dist/server.js",
-    "render": "npm ci && npm run build "
+    "render": "npm i && npm run build"
   },
   "keywords": [
     "rest",
