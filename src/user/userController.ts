@@ -10,6 +10,7 @@ import crypto from "crypto";
 import transporter from "../config/nodemailer";
 import twilioClient from "../config/twilio";
 import { AuthenticatedRequest } from "../middlewares/jwtTokenVerification";
+import mongoose from "mongoose";
 
 const createUser = async (req: Request, res: Response, next: NextFunction) => {
   const {
@@ -94,7 +95,7 @@ const createUser = async (req: Request, res: Response, next: NextFunction) => {
     // Save phone OTP to user model
     newUser.phoneOtp = phoneOtp;
     newUser.phoneOtpExpiration = phoneOtpExpiration;
-    await newUser.save();
+    await (newUser as mongoose.Document).save();
 
     // Send phone OTP via SMS
     if (phoneNumber) {
