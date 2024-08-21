@@ -36,35 +36,27 @@ const createHealthMetric = async (
   next: NextFunction
 ) => {
   const userId = req.userId;
-  const metrics = req.body.metrics; // Expecting an array of metrics
+  const metric = req.body;
 
   if (!userId) {
     return next(createHttpError(401, "User ID is missing in request"));
   }
 
-  if (!Array.isArray(metrics) || metrics.length === 0) {
-    return next(createHttpError(400, "Metrics array is empty or invalid"));
-  }
-
   try {
-    const newMetrics = await Promise.all(
-      metrics.map(async (metric: any) => {
-        const newMetric = new HealthMetric({
-          userId,
-          bloodPressure: metric.bloodPressure,
-          heartRate: metric.heartRate,
-          glucoseLevel: metric.glucoseLevel,
-          cholesterol: metric.cholesterol,
-          date: metric.date,
-        });
-        return newMetric.save();
-      })
-    );
+    const newMetric = new HealthMetric({
+      userId,
+      bloodPressure: metric.bloodPressure,
+      heartRate: metric.heartRate,
+      glucoseLevel: metric.glucoseLevel,
+      cholesterol: metric.cholesterol,
+      date: metric.date,
+    });
+    await newMetric.save();
     res
       .status(201)
-      .json({ message: "Health metrics created successfully", newMetrics });
+      .json({ message: "Health metric created successfully", newMetric });
   } catch (err) {
-    next(createHttpError(500, "Error while creating health metrics"));
+    next(createHttpError(500, "Error while creating health metric"));
   }
 };
 

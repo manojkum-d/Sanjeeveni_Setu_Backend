@@ -10,6 +10,7 @@ import adminRouter from "./admin/adminRouter.js";
 import patientProfileRouter from "./user/userProfile/userProfileRoute.js";
 import prescriptionRouter from "./health_details/Prescription_Info/prescriptionRoute.js";
 import LabRouter from "./health_details/Lab_Results/LabReportsRoute.js";
+import Predictionrouter from "./health_details/Prediction/PredicitonRoute.js";
 
 const app = express();
 
@@ -35,6 +36,7 @@ app.use("/api/hospitals", hospitalRouter);
 app.use("/api/health-metrics", healthMetricsRouter);
 app.use("/api/documents", documentRouter);
 app.use("/api/prescription", prescriptionRouter);
+app.use("/api/predictions", Predictionrouter);
 app.use("/api/labreports", LabRouter);
 app.use("/api/medication-reminders", medicationReminderRouter);
 app.use("/api/admin", adminRouter); // Use the admin router
