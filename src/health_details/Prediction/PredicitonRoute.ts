@@ -10,7 +10,7 @@ import { verifyJWT } from "../../middlewares/jwtTokenVerification.js";
 
 const Predictionrouter = express.Router();
 
-Predictionrouter.post("/prediction", verifyJWT, createPrediction);
+Predictionrouter.post("/prediction", createPrediction);
 Predictionrouter.put("/prediction/:predictionId", verifyJWT, updatePrediction);
 Predictionrouter.get("/predictions", verifyJWT, getPredictions);
 Predictionrouter.delete(
