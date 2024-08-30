@@ -15,4 +15,5 @@ export interface PatientProfile extends mongoose.Document {
   pastMedicalHistory: string[];
   relatives: Relative[];
   communicableDiseases: string[];
+  profileImageUrl: string;
 }

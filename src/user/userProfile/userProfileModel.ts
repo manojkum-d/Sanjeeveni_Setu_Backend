@@ -16,6 +16,7 @@ const patientProfileSchema = new Schema<PatientProfile>({
   pastMedicalHistory: { type: [String], required: false },
   relatives: { type: [relativeSchema], required: false },
   communicableDiseases: { type: [String], required: false },
+  profileImageUrl: { type: String, required: false }, // New field for profile image
 });
 
 export default mongoose.model<PatientProfile>(
