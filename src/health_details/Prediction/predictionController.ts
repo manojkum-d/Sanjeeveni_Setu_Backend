@@ -42,15 +42,20 @@ const createPrediction = async (
     const newPrediction = new Prediction({
       userId,
       age: predictionData.age,
-      gender: predictionData.gender,
-      bloodPressure: predictionData.bloodPressure,
-      cholesterolLevel: predictionData.cholesterolLevel,
-      bloodSugarLevel: predictionData.bloodSugarLevel,
-      BMI: predictionData.BMI,
-      smokingStatus: predictionData.smokingStatus,
-      physicalActivityLevel: predictionData.physicalActivityLevel,
-      familyHistory: predictionData.familyHistory,
-      medicalHistory: predictionData.medicalHistory,
+      sex: predictionData.sex,
+      cp: predictionData.cp,
+      trestbps: predictionData.trestbps,
+      chol: predictionData.chol,
+      fbs: predictionData.fbs,
+      restecg: predictionData.restecg,
+      thalach: predictionData.thalach,
+      exang: predictionData.exang,
+      oldpeak: predictionData.oldpeak,
+      slope: predictionData.slope,
+      ca: predictionData.ca,
+      thal: predictionData.thal,
+      prediction: predictionData.prediction,
+      probability: predictionData.probability,
       date: predictionData.date,
     });
     await newPrediction.save();
@@ -94,9 +99,9 @@ const updatePrediction = async (
 
   try {
     const updatedPrediction = await Prediction.findOneAndUpdate(
-      { userId },
+      { _id: req.params.predictionId, userId },
       { $set: updateData },
-      { new: true, upsert: true }
+      { new: true }
     );
     res.json({ message: "Prediction updated successfully", updatedPrediction });
   } catch (err) {
